@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.scripts]
-react-agent = "react_agent:main"
+react-agent = "react_agent.main:main"
 
 [tool.uv.sources]
 agency-core = { workspace = true }
