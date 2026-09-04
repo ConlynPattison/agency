@@ -8,12 +8,14 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
-    "langchain-ollama>=1.1.0",
-    "langgraph>=1.2.11",
+    "agency-core",
 ]
 
 [project.scripts]
 react-agent = "react_agent:main"
+
+[tool.uv.sources]
+agency-core = { workspace = true }
 
 [build-system]
 requires = ["uv_build>=0.12.9,<0.13.0"]

@@ -1,0 +1,17 @@
+[project]
+name = "agency"
+version = "0.1.0"
+description = "Proof of concepts and demos for agent orchestration and compromised-state detection"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.uv.workspace]
+members = ["packages/*", "demos/*"]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = [
+    "black>=26.5.1",
+]
