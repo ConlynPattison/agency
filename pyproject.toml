@@ -11,7 +11,13 @@ members = ["packages/*", "demos/*"]
 [tool.uv]
 package = false
 
+[tool.docformatter]
+black = true
+recursive = true
+exclude = [".venv"]
+
 [dependency-groups]
 dev = [
     "black>=26.5.1",
+    "docformatter>=1.7.8",
 ]

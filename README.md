@@ -60,3 +60,14 @@ uv add --package <demo-name> agency-core
 
 `members = ["packages/*", "demos/*"]` in the root `pyproject.toml` picks it up with no further
 registration.
+
+
+## Formatting
+
+```bash
+# 1. Formatting the code to PEP 257
+black . --target-version py312
+
+# 2. Formatting the comments
+uv run docformatter -i -r demos packages
+```

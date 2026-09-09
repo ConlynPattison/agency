@@ -8,6 +8,8 @@ from react_agent.graph.state import State
 
 
 def should_continue(state: State) -> str:
+    """Determines whether to continue to the tool node or end the graph execution based
+    on the last message in the state."""
     messages = state["messages"]
     last_message = messages[-1]
     if last_message.tool_calls:
@@ -16,6 +18,7 @@ def should_continue(state: State) -> str:
 
 
 def build_graph() -> CompiledStateGraph:
+    """Builds a state graph for the React Agent."""
     tool_node = ToolNode(tools=[get_local_datetime])
     graph = StateGraph(state_schema=State)
 

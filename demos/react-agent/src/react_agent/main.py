@@ -2,7 +2,7 @@ from agency.prompts import init_messages
 from langchain_core.messages import HumanMessage
 
 from react_agent.graph.graph import build_graph
-from react_agent.graph.state import State
+from react_agent.graph.service import stream_agent_chat
 
 
 def main() -> None:
@@ -11,29 +11,16 @@ def main() -> None:
 
     while True:
         user_message = input("User message: ")
-        if user_message:
-            messages.append(HumanMessage(content=user_message))
+        if not user_message:
+            continue
 
-        final_state = None
-        for mode, payload in graph.stream(
-            State(messages=messages), stream_mode=["messages", "values"]
-        ):
-            if mode == "values":
-                final_state = payload
-                continue
+        if user_message.lower() in ["exit", "quit"]:
+            print("Exiting...")
+            break
 
-            chunk, metadata = payload
-            node = metadata.get("langgraph_node")
+        messages.append(HumanMessage(content=user_message))
 
-            # Handle the streamed chunks from the graph node executions
-            if node == "generator":
-                for tool_call in chunk.tool_call_chunks:
-                    if tool_call.get("name"):
-                        print(f"\n[calling {tool_call['name']}]", flush=True)
-                if chunk.content:
-                    print(chunk.content, end="", flush=True)
-            elif node == "tool":
-                print(f"[{chunk.name} -> {chunk.content}]\n", flush=True)
+        final_state = stream_agent_chat(graph, messages)
 
         if final_state is not None:
             messages = final_state["messages"]
