@@ -32,4 +32,4 @@ def stream_agent_chat(graph: CompiledStateGraph, messages: list) -> Any | None:
         elif node == "tool":
             print(f"[{chunk.name} -> {chunk.content}]\n", flush=True)
 
-        return final_state
+    return final_state
